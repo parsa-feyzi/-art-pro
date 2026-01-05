@@ -6,7 +6,7 @@ import Link from "next/link";
 
 function AuthNavbar() {
   return (
-    <div className="grid grid-cols-3 py-4.5">
+    <div className="grid grid-cols-3 py-4.5 z-10 relative bg-background mb-14">
       <div className="sm:block hidden">
         <Link href="/" className={buttonVariants({ variant: "outline" })}>
           <ArrowLeft />

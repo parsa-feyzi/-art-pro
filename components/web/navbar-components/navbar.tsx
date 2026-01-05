@@ -20,7 +20,7 @@ function Navbar() {
             Sign up
           </NavbarLink>
           <NavbarLink path="/login">
-            Login
+            Log in
           </NavbarLink>
         </div>
         <div>

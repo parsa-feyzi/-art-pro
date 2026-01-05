@@ -3,18 +3,20 @@
 import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
 import AuthInput from "@/components/web/auth-components/auth-input";
-import { loginSchema } from "@/schemas/auth";
+import { signUpSchema } from "@/schemas/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-function LoginForm() {
+function SignUpForm() {
   const { handleSubmit, control, reset } = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
+      userName: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
@@ -22,7 +24,7 @@ function LoginForm() {
 
   const onSubmit = () => {
     reset();
-    toast.success("You logged in your account successfully!", {
+    toast.success("You Registered your account successfully!", {
       style: {
         borderRadius: "10px",
         background: "#77777737",
@@ -30,12 +32,18 @@ function LoginForm() {
       },
     });
     setTimeout(() => {
-      router.replace("/");
+      router.replace("/login");
     }, 3000);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup className="gap-4">
+        <AuthInput
+          control={control}
+          name="userName"
+          label="user name"
+          placeholder="exampleUserName"
+        />
         <AuthInput control={control} name="email" placeholder="e@example.com" />
         <AuthInput
           control={control}
@@ -43,15 +51,22 @@ function LoginForm() {
           type="password"
           placeholder="*****"
         />
+        <AuthInput
+          control={control}
+          name="confirmPassword"
+          type="password"
+          label="confirm password"
+          placeholder="*****"
+        />
         <Button
           type="submit"
           className="w-full mt-2 cursor-pointer active:opacity-70"
         >
-          Log in
+          Sign up
         </Button>
       </FieldGroup>
     </form>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;

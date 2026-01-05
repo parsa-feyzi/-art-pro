@@ -4,7 +4,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
       <AuthNavbar />
-      <div className="grid place-content-center w-full h-[calc(100vh-73px)]">
+      <div className="grid place-content-center w-full pb-12">
         {children}
       </div>
     </section>

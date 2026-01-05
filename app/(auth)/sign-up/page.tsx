@@ -1,8 +1,11 @@
-import React from 'react'
+import AuthCard from '@/components/web/auth-components/auth-card'
+import SignUpForm from '@/components/web/auth-components/sign-up-form'
 
 function SignUp() {
   return (
-    <div>SignUp</div>
+    <AuthCard title='Sign up' description='Create a account to get start' headerLink={{ title: "Log in", path: "/login" }}>
+      <SignUpForm />
+    </AuthCard>
   )
 }
 
