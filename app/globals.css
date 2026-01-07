@@ -123,3 +123,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* animations */
+.animate-spinner {
+  animation: animate-spinner 1s infinite linear ;
+  -webkit-animation: animate-spinner 1s infinite linear ;
+}
+
+@keyframes animate-spinner{
+  0%{
+    rotate: 0deg;
+  }
+  100%{
+    rotate: 360deg;
+  }
+}

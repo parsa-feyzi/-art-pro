@@ -1,7 +1,9 @@
+"use client";
+
 function Blog() {
   return (
-    <div>Blog</div>
-  )
+    <div>blog</div>
+  );
 }
 
-export default Blog
+export default Blog;

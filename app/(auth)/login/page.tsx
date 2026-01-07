@@ -4,7 +4,7 @@ import AuthCard from "@/components/web/auth-components/auth-card";
 
 export const metadata: Metadata = {
   title: "login",
-  description: "login page",
+  description: "Log in to your account",
 };
 
 function Login() {

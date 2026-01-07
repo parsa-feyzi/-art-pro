@@ -1,40 +1,30 @@
 "use client";
 
+import { signUpInfo } from "@/schemas/auth";
+import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { FieldGroup } from "@/components/ui/field";
+import { Spinner } from "@/components/ui/spinner";
 import AuthInput from "@/components/web/auth-components/auth-input";
-import { signUpSchema } from "@/schemas/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import useSignUpForm from "@/hooks/useSignUpForm";
+import { successToast } from "@/lib/funcs/toast";
+
+const url = process.env.NEXT_PUBLIC_SITE_URL;
 
 function SignUpForm() {
-  const { handleSubmit, control, reset } = useForm({
-    resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      userName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const { handleSubmit, control, reset, formState: { isSubmitting } } = useSignUpForm()
 
-  const router = useRouter();
-
-  const onSubmit = () => {
-    reset();
-    toast.success("You Registered your account successfully!", {
-      style: {
-        borderRadius: "10px",
-        background: "#77777737",
-        color: "#fff",
-      },
-    });
-    setTimeout(() => {
-      router.replace("/login");
-    }, 3000);
+  const onSubmit = async (data: signUpInfo) => {
+    try {
+      const response = await axios.post(`${url}/api/users`, data);
+      successToast("You Registered your account successfully!", { path: "/login" });
+      reset()
+      console.log(response);
+    } catch (error) {
+      console.log(error, error);
+    }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup className="gap-4">
@@ -62,7 +52,7 @@ function SignUpForm() {
           type="submit"
           className="w-full mt-2 cursor-pointer active:opacity-70"
         >
-          Sign up
+          {isSubmitting ? <Spinner /> : "Sign up"}
         </Button>
       </FieldGroup>
     </form>

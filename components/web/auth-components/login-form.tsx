@@ -31,7 +31,7 @@ function LoginForm() {
     });
     setTimeout(() => {
       router.replace("/");
-    }, 3000);
+    }, 2500);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
