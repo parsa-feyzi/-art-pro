@@ -9,7 +9,7 @@ function useSignUpForm() {
             userName: "",
             email: "",
             password: "",
-            confirmPassword: "",
+            confirmPassword: ""
         },
     });
 }

@@ -1,36 +1,28 @@
 "use client";
-import { Moon, Sun } from "lucide-react";
+
+import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import IconButtonDropdown from "../ui/icon-button-dropdown";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
+
+  const dropdownMenuItems = [
+    { text: "Light", icon: <Sun />, action: () => setTheme("light") }, 
+    { text: "Dark", icon: <Moon />, action: () => setTheme("dark") }, 
+    { text: "System", icon: <Monitor />, action: () => setTheme("system") }, 
+  ]
+
   return (
-    <DropdownMenu >
-      <DropdownMenuTrigger className="cursor-pointer" asChild>
-        <Button variant="outline" size="icon">
+    <IconButtonDropdown
+      buttonIcon={
+        <>
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")} className="cursor-pointer">
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className="cursor-pointer">
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")} className="cursor-pointer">
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </>
+      }
+      description="Toggle theme"
+      dropdownMenuItems={dropdownMenuItems}
+    />
   );
 }

@@ -54,7 +54,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(62% 0.17 162.48);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -88,7 +88,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: oklch(70% 0.17 162.48);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -136,5 +136,38 @@
   }
   100%{
     rotate: 360deg;
+  }
+}
+
+.skeleton {
+  animation: animate-skeleton-opacity 1s infinite forwards;
+  -webkit-animation: animate-skeleton-opacity 1s infinite forwards;
+}
+
+@keyframes animate-skeleton-opacity{
+  0%{
+    opacity: 60%;
+  }
+  50%{
+    opacity: 100%;
+  }
+  100%{
+    opacity: 60%;
+  }
+}
+
+.timer {
+  animation: animate-skeleton-opacity 1s infinite forwards;
+}
+
+@keyframes animate-timer-opacity {
+  0%{
+    opacity: 0%;
+  }
+  50%{
+    opacity: 60%;
+  }
+  100%{
+    opacity: 0%;
   }
 }

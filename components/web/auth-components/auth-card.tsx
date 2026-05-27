@@ -18,7 +18,7 @@ interface Props {
 
 function AuthCard({ title, description, headerLink, children }: Props) {
   return (
-    <Card className="w-[90vw] sm:w-sm max-w-sm ">
+    <Card className="w-[90vw] my-8 md:w-md max-w-md">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
