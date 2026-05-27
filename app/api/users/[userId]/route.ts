@@ -1,4 +1,5 @@
-import User from "@/models/User";
+// import User from "@/models/User";
+import users from "@/lib/mockApi/usersData.json"
 import { NextResponse } from "next/server";
 
 interface Params {
@@ -8,7 +9,8 @@ interface Params {
 export async function GET(_request: Request, { params }: Params) {
   try {
     const { userId } = await params;
-    const user = await User.findOne({ _id: userId });
+    // const user = await User.findOne({ _id: userId });
+    const user = users.find(({ _id }) => (userId === _id.toString()))
     if (user) {
       return NextResponse.json(user, { status: 200 });
     }
@@ -24,20 +26,20 @@ export async function GET(_request: Request, { params }: Params) {
   }
 }
 
-export async function DELETE(_request: Request, { params }: Params) {
-  try {
-    const { userId } = await params;
-    const result = await User.deleteOne({ _id: userId });
-    if (result.deletedCount) {
-      return NextResponse.json(
-        { message: "User Deleted Successfully :)" },
-        { status: 200 }
-      );
-    }
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Filed To Fetch User" },
-      { status: 500 }
-    );
-  }
-}
+// export async function DELETE(_request: Request, { params }: Params) {
+//   try {
+//     const { userId } = await params;
+//     const result = await User.deleteOne({ _id: userId });
+//     if (result.deletedCount) {
+//       return NextResponse.json(
+//         { message: "User Deleted Successfully :)" },
+//         { status: 200 }
+//       );
+//     }
+//   } catch (error) {
+//     return NextResponse.json(
+//       { message: "Filed To Fetch User" },
+//       { status: 500 }
+//     );
+//   }
+// }

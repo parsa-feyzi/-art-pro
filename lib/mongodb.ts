@@ -1,8 +1,8 @@
-const uri = process.env.MONGODB_URI;
 import mongoose from "mongoose"
 
-if (!uri) throw new Error("MONGODB_URI is not defined");
+const uri = process.env.MONGODB_URI;
 
+if (!uri) throw new Error("MONGODB_URI is not defined");
 let isConnected = false;
 
 export const connectToDatabase = async () => {

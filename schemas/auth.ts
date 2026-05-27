@@ -12,10 +12,9 @@ export const signUpSchema = z
     password: z.string().min(5).max(30),
     confirmPassword: z.string().min(5).max(30),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-  
-export type signUpInfo = z.infer<typeof signUpSchema>;
-export type LoginInfo = Pick<signUpInfo, "email" | "password">;
+  .refine(
+    (data) => data.password === data.confirmPassword, {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    }
+);
