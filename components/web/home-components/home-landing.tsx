@@ -1,6 +1,8 @@
 import HomeLandingSearchBox from "./home-landing-search-box";
 import CrookedArrow from "@/components/ui/crooked-arrow";
 import HomeLandingLogo from "./home-landing-logo";
+import { Suspense } from "react";
+import HomeLandingSearchBoxSkeleton from "@/components/skeleton/home-skeletons/home-landing-search-box-skeleton";
 
 function HomeLanding() {
   return (
@@ -10,7 +12,9 @@ function HomeLanding() {
       </div>
       <CrookedArrow className="md:block hidden lg:left-20 lg:bottom-15 left-0 bottom-10 rotate-45" />
       <CrookedArrow className="md:block hidden lg:right-20 lg:bottom-45 right-0 bottom-35 -rotate-135" />
-      <HomeLandingSearchBox />
+      <Suspense fallback={<HomeLandingSearchBoxSkeleton />}>
+        <HomeLandingSearchBox />
+      </Suspense>
     </section>
   );
 }

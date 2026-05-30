@@ -8,15 +8,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Suspense } from "react";
 
 interface Props {
   title: string;
   description: string;
   headerLink: { title: string; path: string };
+  formFallback: React.ReactNode;
   children: React.ReactNode;
 }
 
-function AuthCard({ title, description, headerLink, children }: Props) {
+function AuthCard({ title, description, headerLink, formFallback, children }: Props) {
   return (
     <Card className="w-[90vw] my-8 md:w-md max-w-md">
       <CardHeader>
@@ -35,7 +37,7 @@ function AuthCard({ title, description, headerLink, children }: Props) {
         </CardAction>
       </CardHeader>
       <CardContent>
-        {children}
+        <Suspense fallback={formFallback}>{children}</Suspense>
       </CardContent>
     </Card>
   );
