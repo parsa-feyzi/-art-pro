@@ -4,18 +4,23 @@ import ArticleBodySkeleton from "@/components/skeleton/blog-skeletons/blog-body-
 import { SearchParams } from "@/lib/types";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import BlogHeaderSkeleton from "@/components/skeleton/blog-skeletons/blog-header-skeleton";
 
-interface Props { searchParams: SearchParams }
+interface Props {
+  searchParams: SearchParams;
+}
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Weblog page, articles collection"
-}
+  description: "Weblog page, articles collection",
+};
 
 function BlogPage({ searchParams }: Props) {
   return (
     <main className="min-h-[calc(100vh-100px)]">
-      <BlogHeader />
+      <Suspense fallback={<BlogHeaderSkeleton />}>
+        <BlogHeader />
+      </Suspense>
       <Suspense fallback={<ArticleBodySkeleton />}>
         <BlogBody searchParams={searchParams} />
       </Suspense>

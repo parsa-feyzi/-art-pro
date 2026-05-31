@@ -4,6 +4,8 @@ import NavbarUserLinks from "./navbar-user-links";
 import NavbarLinksGroup from "./navbar-links-group";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { Suspense } from "react";
+import NavbarUserLinksSkeleton from "@/components/skeleton/navbar-user-links-skeleton";
 
 function Navbar() {
   return (
@@ -25,7 +27,9 @@ function Navbar() {
         </div>
       </div>
       <div className="flex justify-end lg:gap-4 gap-3">
-        <NavbarUserLinks />
+        <Suspense fallback={<NavbarUserLinksSkeleton />}>
+          <NavbarUserLinks />
+        </Suspense>
         <div className="sm:block hidden">
           <ThemeToggle />
         </div>
