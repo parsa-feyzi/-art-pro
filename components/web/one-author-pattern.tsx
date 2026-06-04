@@ -1,11 +1,13 @@
 import ProfileImage from "@/components/ui/profile-image";
 import { User } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { ClassNameValue } from "tailwind-merge";
 
-type Props = Pick<User, 'userName' | 'email' | 'profileImage'>
+type Props = Pick<User, 'userName' | 'email' | 'profileImage'> & { className?: ClassNameValue }
 
-function OneAuthorPattern({ userName, email, profileImage }: Props) {
+function OneAuthorPattern({ userName, email, profileImage, className }: Props) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className={cn("flex gap-2 items-center", className)}>
       <ProfileImage
         alt={userName}
         src={profileImage}
@@ -13,7 +15,7 @@ function OneAuthorPattern({ userName, email, profileImage }: Props) {
       />
       <div>
         <div className="text-xs font-medium">{userName}</div>
-        <div className="text-[11px] opacity-50">{email}</div>
+        <div className="text-[11px] text-tertiary">{email}</div>
       </div>
     </div>
   );

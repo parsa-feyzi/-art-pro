@@ -25,7 +25,7 @@ function MultiAuthorsPattern({ authors }: Props) {
       </div>
       <div className="text-xs -translate-x-1">
         <div>{authors.length}+</div>
-        <div className="opacity-50">authors</div>
+        <div className="text-primary-foreground">authors</div>
       </div>
     </div>
   );

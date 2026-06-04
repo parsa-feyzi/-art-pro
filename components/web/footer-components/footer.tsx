@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Heart, Mail, PhoneCall } from "lucide-react";
 import TowContentSeparator from "../../ui/tow-content-separator";
 import Logo from "../logo";
 import FooterInfoPad from "./footer-info-pad";
@@ -9,9 +9,9 @@ import { Article } from "@/lib/types";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const usefulReferencesLinks = [
-  { lable: "about us", href: "/about-us" },
-  { lable: "blog", href: "/blog" },
-  { lable: "create article", href: "/dashboard" },
+  { label: "Blog", href: "/blog" },
+  { label: "About us", href: "/about-us" },
+  { label: "Create article", href: "/dashboard" },
 ];
 
 async function Footer() {
@@ -23,19 +23,19 @@ async function Footer() {
   articles = articles.slice(articles.length - 4, articles.length);
 
   const studyProposal = articles.map(({ title, _id }) => ({
-    lable: title,
+    label: title,
     href: `/blog/${_id}`,
   }));
 
   return (
-    <footer className="bg-background relative z-10 lg:mt-40 md:mt-34 sm:mt-28 mt-16 border-t-2 border-input overflow-hidden">
+    <footer className="bg-background relative z-10 lg:mt-40 md:mt-34 sm:mt-28 mt-16 border-t-2 border-input/60 overflow-hidden">
       <div className="container max-w-7xl mx-auto pt-16 lg:px-8 md:px-6 px-4">
         <div className="grid grid-cols-7 gap-x-6 gap-y-16">
           <div className="lg:col-span-3 col-span-7">
             <div className="flex sm:justify-start justify-center">
               <Logo size="md" />
             </div>
-            <p className="sm:mt-10 mt-6 max-w-5/6 opacity-80 leading-7 line-clamp-5 md:text-base text-sm sm:text-left text-center sm:mx-0 mx-auto">
+            <p className="sm:mt-10 mt-6 max-w-5/6 text-muted-foreground leading-7 line-clamp-5 md:text-base text-sm sm:text-left text-center sm:mx-0 mx-auto">
               Welcome to Artpro a space where curiosity meets creativity. Our
               mission is simple: to inspire, inform, and empower readers through
               authentic stories, thoughtful insights, and practical tips that
@@ -46,20 +46,18 @@ async function Footer() {
             <div>
               <TowContentSeparator
                 firstData={
-                  <FooterInfoPad label="Email" info="artpro@gmail.com" />
+                  <FooterInfoPad label={<Mail className="size-4.5 translate-y-0.5" />} info="artpro@gmail.com" />
                 }
-                lastData={<FooterInfoPad label="Phone" info="+912 458 8569" />}
-                opacity={80}
-                className="mt-12 sm:justify-start justify-center sm:translate-x-0 -translate-x-2 md:flex! hidden!"
+                lastData={<FooterInfoPad label={<PhoneCall className="size-4.5 translate-y-0.5" />} info="+912 458 8569" />}
+                className="mt-16 sm:justify-start justify-center sm:translate-x-0 -translate-x-2 md:flex! hidden!"
               />
               <TowContentSeparator
                 firstData={
-                  <FooterInfoPad label="Email" info="artpro@gmail.com" />
+                  <FooterInfoPad label={<Mail className="size-4"/>} info="artpro@gmail.com" />
                 }
-                lastData={<FooterInfoPad label="Phone" info="+912 458 8569" />}
-                opacity={80}
+                lastData={<FooterInfoPad label={<PhoneCall className="size-4"/>} info="+912 458 8569" />}
                 size="sm"
-                className="mt-12 sm:justify-start justify-center sm:translate-x-0 -translate-x-2 md:hidden! flex!"
+                className="mt-16 sm:justify-start justify-center sm:translate-x-0 -translate-x-2 md:hidden! flex!"
               />
             </div>
           </div>
@@ -74,10 +72,10 @@ async function Footer() {
             />
           </div>
         </div>
-        <div className="border-t border-input lg:mt-16 mt-20 py-6 flex justify-center items-center opacity-80 lg:text-sm text-xs">
+        <div className="border-t border-input text-tertiary lg:mt-16 mt-20 py-6 flex justify-center items-center lg:text-sm text-xs">
           <div>
             Made with{" "}
-            <Heart className="size-4 -translate-y-0.5 inline-block text-primary" />{" "}
+            <Heart className="size-4 -translate-y-0.5 inline-block text-primary opacity-60" />{" "}
             for the knowledge community by <i>Parsa Fayzi</i>
           </div>
         </div>

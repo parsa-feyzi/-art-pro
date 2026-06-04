@@ -8,12 +8,12 @@ function AboutHero() {
         <div className="pb-24 md:pb-32 md:pt-6 pt-4">
           <div className="text-center">
             <div className="relative overflow-hidden mb-12 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium">
-              <span>About Artpro</span>
-              <ShutterStickyPattern className="h-[1500%] scale-20 -rotate-135 -top-62 -left-56 opacity-100 dark:opacity-100" />
+              <span className="dark:text-green-100 text-green-900">About Artpro</span>
+              <ShutterStickyPattern className="h-[1500%] -z-10 scale-20 -rotate-135 -top-62 -left-56 opacity-100 dark:opacity-100" />
             </div>
-            <h1 className="text-5xl font-bold tracking-tight leading-14 md:text-6xl">
+            <h2 className="text-5xl font-bold tracking-tight leading-14 md:text-6xl">
               Where <span className="text-primary">ideas</span> become articles.
-            </h1>
+            </h2>
             <p className="mx-auto mt-10 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
               Artpro is an open blogging platform where writers can publish
               their ideas, share knowledge, and build a meaningful audience —

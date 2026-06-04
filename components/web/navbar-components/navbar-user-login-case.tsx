@@ -1,4 +1,4 @@
-import { logoutAction } from '@/app/(site)/(main)/logout-action';
+import { logoutAction } from '@/app/(site)/(main)/logout.actions';
 import IconButtonDropdown from '@/components/ui/icon-button-dropdown'
 import { useAuthContext } from '@/contexts/auth-context';
 import { Bookmark, FilePen, Home, LogOut, User, UserStarIcon } from 'lucide-react';

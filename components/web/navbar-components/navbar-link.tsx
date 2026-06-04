@@ -20,7 +20,7 @@ function NavbarLink({ children, path="/", variant="ghost", size="default", class
   const pathName = usePathname()
 
   return (
-    <Link href={path} className={`${cn(buttonVariants({ variant, size }), className, "lg:text-base text-xs")} ${pathName === path && "bg-accent"}`}>
+    <Link href={path} className={`${cn(buttonVariants({ variant, size }), className, "lg:text-base text-xs")} ${pathName === path && "bg-accent text-foreground"}`}>
       {children}
     </Link>
   )

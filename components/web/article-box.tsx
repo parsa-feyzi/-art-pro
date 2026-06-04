@@ -16,12 +16,12 @@ function ArticleBox({ title, content, authors, status, _createdAt, _id  }: Artic
           </Link>
           <ArticlePublishStatusDot status={status} className="mt-3" />
         </div>
-        <div className="text-sm opacity-70 line-clamp-3 pt-2 leading-5.5">
+        <div className="text-sm text-muted-foreground line-clamp-3 pt-2 leading-5.5">
           {content}
         </div>
       </div>
-      <div className="flex justify-between items-end pt-5 opacity-95 text-sm">
-        <div className="opacity-90">
+      <div className="flex justify-between items-end pt-5 text-sm">
+        <div className="">
           {authors.length > 1 ? (
             <MultiAuthorsPattern authors={authors} />
           ) : (
@@ -32,7 +32,7 @@ function ArticleBox({ title, content, authors, status, _createdAt, _id  }: Artic
             />
           )}
         </div>
-        <div className="text-xs opacity-90">
+        <div className="text-xs text-tertiary">
           {dateToTimeHandler(_createdAt.toString())}
         </div>
       </div>

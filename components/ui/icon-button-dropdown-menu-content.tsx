@@ -6,7 +6,7 @@ import {
 import Link from "next/link";
 import { IconButtonDropdownProps } from "./icon-button-dropdown";
 
-function IconButtonBropdownMenuContent({ children, dropdownMenuItems }: Omit<IconButtonDropdownProps, "buttonIcon" | "description">) {
+function IconButtonDropdownMenuContent({ children, dropdownMenuItems }: Omit<IconButtonDropdownProps, "buttonIcon" | "description">) {
   return (
     <DropdownMenuContent align="end">
         {children}
@@ -42,4 +42,4 @@ function IconButtonBropdownMenuContent({ children, dropdownMenuItems }: Omit<Ico
   )
 }
 
-export default IconButtonBropdownMenuContent
+export default IconButtonDropdownMenuContent
