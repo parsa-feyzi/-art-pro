@@ -2,8 +2,9 @@
 
 Clone of repo
 ```bash
-git clone 
+git clone git@github.com:parsa-feyzi/-art-pro.git
 ```
+
 
 Installation
 ```bash
@@ -15,6 +16,7 @@ pnpm install
 # or
 bun install
 ```
+
 
 First, run the development server:
 
