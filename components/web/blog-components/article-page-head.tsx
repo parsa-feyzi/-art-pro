@@ -82,7 +82,7 @@ function ArticlePageHead({ title, _updatedAt, authors, status, views }: Article)
           size={"sm"}
           variant={"secondary"}
           className={`${
-            status === "published" ? "text-primary" : "text-amber-500"
+            status === "published" ? "text-primary" : "text-danger"
           } cursor-default md:text-base! text-xs!`}
         >
           {status === "published" ? "Published" : "Draft"}

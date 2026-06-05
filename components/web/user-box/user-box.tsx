@@ -16,10 +16,10 @@ function UserBox({ userName, email, profileImage, articles, _id }: User) {
             <ProfileImage alt={userName} size={40} src={profileImage} />
             <div>
               <div className="font-medium">{userName}</div>
-              <div className="text-xs opacity-60">{email}</div>
+              <div className="text-xs text-tertiary">{email}</div>
             </div>
           </Link>
-          <div className="flex items-cente justify-start gap-0.5 pt-1.5 text-amber-500">
+          <div className="flex justify-start gap-0.5 pt-1.5 text-amber-500">
             <div className="text-[13px] -translate-y-0.75">4</div>
             <Star className="size-3.5 text-amber-500" />
           </div>
@@ -31,7 +31,7 @@ function UserBox({ userName, email, profileImage, articles, _id }: User) {
           <Activity mode={articles.length - 2 ? "visible" : "hidden"}>
             <Link
               href={`/user/${_id}`}
-              className="text-xs flex pt-1 items-end gap-1 text-foreground/70 hover:text-primary hover:gap-2 transition-all duration-200"
+              className="text-xs flex pt-1 items-end gap-1 text-muted-foreground hover:text-primary hover:gap-2 transition-all duration-200"
             >
               <div>and {articles.length - 2} other articles</div>
               <ArrowRight className="size-3.5 translate-y-px" />

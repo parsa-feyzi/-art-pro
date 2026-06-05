@@ -10,15 +10,15 @@ interface Props {
   className?: ClassNameValue
 }
 
-function TowContentSeparator({ firstData, lastData, opacity = 70, size = "lg", className }: Props) {
+function TowContentSeparator({ firstData, lastData, opacity = 100, size = "lg", className }: Props) {
   return (
     <div
       style={{ opacity: `${opacity}%`, fontSize: `${size == "sm" ? "0.8rem" : size == "xl" ? "1.125rem" : "1rem"}` }}
-      className={`flex opacity-70 ${className}`}
+      className={`flex ${className}`}
     >
       <div
         style={{ paddingInlineEnd: `${size == "sm" ? "0.8rem" : size == "xl" ? "1.125rem" : "1rem"}` }}
-        className="border-e-2 border-gray-500/50"
+        className="border-e-2 border-input"
       >
         {firstData}
       </div>

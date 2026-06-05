@@ -4,7 +4,7 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import IconButtonBropdownMenuContent from "./icon-button-dropdown-menu-content";
+import IconButtonDropdownMenuContent from "./icon-button-dropdown-menu-content";
 
 interface DropdownMenuItem {
   variant?: "destructive" | "default";
@@ -38,9 +38,9 @@ function IconButtonDropdown({
                 <span className="sr-only">{description}</span>
               </Button>
             </DropdownMenuTrigger>
-            <IconButtonBropdownMenuContent dropdownMenuItems={dropdownMenuItems}>
+            <IconButtonDropdownMenuContent dropdownMenuItems={dropdownMenuItems}>
               {children}
-            </IconButtonBropdownMenuContent>
+            </IconButtonDropdownMenuContent>
           </DropdownMenu>
       </div>
       <div className="lg:hidden block">
@@ -51,9 +51,9 @@ function IconButtonDropdown({
                 <span className="sr-only">{description}</span>
               </Button>
             </DropdownMenuTrigger>
-            <IconButtonBropdownMenuContent dropdownMenuItems={dropdownMenuItems}>
+            <IconButtonDropdownMenuContent dropdownMenuItems={dropdownMenuItems}>
               {children}
-            </IconButtonBropdownMenuContent>
+            </IconButtonDropdownMenuContent>
           </DropdownMenu>
       </div>
     </>

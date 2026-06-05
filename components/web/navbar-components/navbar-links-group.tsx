@@ -10,7 +10,7 @@ interface Props {
 
 function NavbarLinksGroup({ itemsSize="default", className }: Props) {
   return (
-    <div className={cn("flex gap-1 items-center mt-1", className)}>
+    <div className={cn("flex gap-1 items-center mt-1 text-muted-foreground", className)}>
       <NavbarLink size={itemsSize}>Home</NavbarLink>
       <NavbarLink size={itemsSize} path="/blog">Blog</NavbarLink>
       <NavbarLink size={itemsSize} path="/about-us">About us</NavbarLink>

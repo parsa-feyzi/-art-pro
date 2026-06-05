@@ -1,3 +1,4 @@
+import { createArticleSchema } from "@/schemas/article-create";
 import { signUpSchema } from "@/schemas/auth";
 import { LucideProps } from "lucide-react";
 import { ObjectIdQueryTypeCasting } from "mongoose";
@@ -15,6 +16,8 @@ export type SignUpInfo = z.infer<typeof signUpSchema>;
 
 export type LoginInfo = Pick<SignUpInfo, "email" | "password">;
 
+export type CreateArticleInfo = z.infer<typeof createArticleSchema>;
+
 export type DBSignUpInfos = DefaultDBInfos & SignUpInfo
 
 export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
@@ -26,6 +29,8 @@ export type ButtonSizes = "default" | SizeBase | "icon" | "icon-sm" | "icon-lg" 
 export type ButtonVariants = "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null;
 
 export type ArticleStatus = "published" | "draft";
+
+export type ServerAction = (formData: FormData) => Promise<any>
 
 // interfaces
 export interface User extends Pick<SignUpInfo, "userName" | "email"> {

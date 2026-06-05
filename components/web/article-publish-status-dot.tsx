@@ -11,9 +11,9 @@ function ArticlePublishStatusDot({ status, className }: Props) {
   return (
     <span
       className={cn(
-        status == "draft" ? "bg-primary" : "bg-amber-500",
+        status == "published" ? "bg-primary/50 border border-primary" : "bg-danger/50 border border-danger",
         className,
-        "size-2 min-w-2 min-h-2 opacity-50 rounded-full"
+        "size-2 min-w-2 min-h-2 opacity-60 rounded-full"
       )}
     ></span>
   );
