@@ -70,7 +70,7 @@ function DashboardEditor({ control }: Props) {
                 onContentChangeRef.current = field.onChange
 
                 return (
-                    <div className="col-span-12">
+                    <div id="article-content" className="col-span-12">
                         <input type="hidden" name="content" value={field.value} readOnly />
                         <div
                             className={cn(
