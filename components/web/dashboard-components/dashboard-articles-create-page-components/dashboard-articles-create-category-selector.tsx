@@ -92,7 +92,7 @@ function DashboardArticlesCreateCategorySelector({ control }: Props) {
                                 readOnly
                                 aria-invalid={fieldState.invalid}
                                 className={cn(
-                                    "w-full font-medium placeholder:text-tertiary/60 mt-2 py-5.5! focus-visible:ring-0 focus-visible:border-input cursor-pointer bg-sidebar!",
+                                    "w-full font-medium placeholder:text-tertiary/80 mt-2 py-5.5! focus-visible:ring-0 focus-visible:border-input cursor-pointer bg-sidebar!",
                                     fieldState.invalid && "border-destructive focus-visible:border-destructive"
                                 )}
                                 placeholder="Choose your article category"
@@ -124,7 +124,7 @@ function DashboardArticlesCreateCategorySelector({ control }: Props) {
                                 </Command>
                             </CommandDialog>
                         </div>
-                        <ChevronDown className="text-tertiary/60 absolute top-11 right-4 pointer-events-none" />
+                        <ChevronDown className="text-tertiary/80 absolute top-11 right-4 pointer-events-none" />
                         <Activity mode={fieldState.invalid ? "visible" : "hidden"}>
                             <FieldError className="mt-1" errors={[fieldState.error]} />
                         </Activity>
