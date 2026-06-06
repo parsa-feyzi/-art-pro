@@ -14,7 +14,7 @@ function MultiAuthorsPattern({ authors }: Props) {
             alt={userName}
             src={profileImage}
             size={32}
-            key={_id + Math.random()}
+            key={_id + index}
             className={
               index
                 ? "-translate-x-3 border border-background"
