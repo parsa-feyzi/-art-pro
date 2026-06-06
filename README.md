@@ -5,6 +5,10 @@ Clone of repo
 git clone git@github.com:parsa-feyzi/-art-pro.git
 ```
 
+Go to frontend folder
+```bash
+cd frontend
+```
 
 Installation
 ```bash
@@ -17,6 +21,7 @@ pnpm install
 bun install
 ```
 
+Create ".end.local" file inside of root of frontend
 
 First, run the development server:
 
