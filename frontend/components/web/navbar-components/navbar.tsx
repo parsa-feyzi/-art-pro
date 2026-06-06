@@ -9,7 +9,7 @@ import NavbarUserLinksSkeleton from "@/components/skeleton/navbar-user-links-ske
 
 function Navbar() {
   return (
-    <nav className="sm:static fixed z-30 right-0 left-0 sm:px-0 px-4 sm:flex sm:justify-between sm:items-center grid grid-cols-3 bg-background sm:py-4 py-3 sm:border-b-0 border-b border-b-input">
+    <nav className="sm:static fixed z-30 right-0 left-0 sm:px-0 px-4 sm:flex sm:justify-between sm:items-center grid grid-cols-3 bg-background/70 backdrop-blur-sm sm:py-4 py-3 sm:border-b-0 border-b border-b-input">
       <div className="sm:hidden block">
         <Button variant="outline" size="icon-sm">
           <Menu />
