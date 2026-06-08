@@ -11,7 +11,6 @@ import {
   Sidebar,
   SidebarRail
 } from "@/src/components/ui/sidebar"
-import { Separator } from "@/src/components/ui/separator"
 import DashboardSidebarHeader from "../../../../features/user/components/dashboard-sidebar-header"
 import DashboardSidebarContent from "./dashboard-sidebar-content"
 //
@@ -25,8 +24,8 @@ const data = [
     isActive: true,
   },
   {
-    title: "Modify Article",
-    url: "/dashboard/articles-modify",
+    title: "Manage Articles",
+    url: "/dashboard/articles-manage",
     icon: SquarePen,
     isActive: true,
   },

@@ -5,10 +5,11 @@ import { Activity } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { editorExtensions } from '@/src/features/article/lib/editor-config'
-import { CreateArticleInfo } from '@/src/lib/types'
+import { CreateArticleInfo } from '../types/types'
 import { cn } from '@/src/lib/utils'
 import DashboardEditorToolbar from './dashboard-editor-toolbar'
 import { FieldError } from '@/src/components/ui/field'
+import DashboardEditorSkeleton from './skeletons/dashboard-editor-skeleton'
 
 interface Props {
     control: Control<CreateArticleInfo>
@@ -59,7 +60,7 @@ function DashboardEditor({ control }: Props) {
     }, [editor])
 
     if (!editor) {
-        return <div className="col-span-12">Loading editor...</div>
+        return <DashboardEditorSkeleton />
     }
 
     return (
@@ -82,7 +83,7 @@ function DashboardEditor({ control }: Props) {
                                 editor={editor}
                                 onImageUpload={handleImageUpload}
                             />
-                            <EditorContent editor={editor} />
+                            <EditorContent editor={editor} className='min-h-[300px]' />
                             <input
                                 ref={fileInputRef}
                                 type="file"

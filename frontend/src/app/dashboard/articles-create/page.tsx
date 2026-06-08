@@ -3,9 +3,7 @@ import DashboardArticlesCreateForm from "@/src/features/article/components/dashb
 
 function ArticleCreatePage() {
     return (
-        <div className="pb-12">
-            <DashboardArticlesCreateForm />
-        </div>
+        <DashboardArticlesCreateForm />
     )
 }
 

@@ -15,7 +15,7 @@ function DashboardProvider({ children }: { children: ReactNode }) {
             <DashboardSidebar />
             <SidebarInset>
                 <DashboardNavbar />
-                <main className="px-4 lg:px-6 2xl:px-8">{children}</main>
+                <main className="px-4 lg:px-6 2xl:px-8 mb-24">{children}</main>
             </SidebarInset>
         </SidebarProvider>
     )

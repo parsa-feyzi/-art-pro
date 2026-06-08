@@ -10,10 +10,11 @@ import DashboardArticlesCreateCategorySelector from "@/src/features/article/comp
 import { saveArticle } from "@/src/features/article/server-actions/create-article.actions"
 import { Button } from "@/src/components/ui/button"
 import { FieldError } from "@/src/components/ui/field"
-import { CreateArticleInfo } from "@/src/lib/types"
+import { CreateArticleInfo } from "../types/types"
 import { cn } from "@/src/lib/utils"
 import useCreateArticleForm from "@/src/features/article/hooks/useCreateArticleForm"
 import { Input } from "@/src/components/ui/input"
+import DashboardEditorSkeleton from "./skeletons/dashboard-editor-skeleton"
 
 
 function DashboardArticlesCreateForm() {
@@ -57,7 +58,7 @@ function DashboardArticlesCreateForm() {
             {/* category selector */}
             <DashboardArticlesCreateCategorySelector control={control} />
             {/* editor */}
-            <Suspense fallback={<div>Loading editor...</div>}>
+            <Suspense fallback={<DashboardEditorSkeleton />}>
                 <DashboardEditor control={control} />
             </Suspense>
             <div className="col-span-12 flex justify-between">
