@@ -10,12 +10,21 @@ function AuthNavbarGoBackBtn() {
   const clickHandler = () => router.back()
 
   return (
-    <div className="sm:block hidden">
-      <Button onClick={clickHandler} variant="outline">
-        <ArrowLeft />
-        <span>Go Back</span>
-      </Button>
-    </div>
+    <>
+      <div>
+        {/* desktop state */}
+        <Button className="sm:inline-flex hidden" onClick={clickHandler} variant="outline">
+          <ArrowLeft />
+          <span>Go Back</span>
+        </Button>
+        {/* mobile state */}
+        <Button className="sm:hidden inline-flex" onClick={clickHandler} variant="outline" size="icon">
+          <ArrowLeft />
+        </Button>
+      </div>
+
+
+    </>
   )
 }
 

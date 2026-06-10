@@ -23,7 +23,7 @@ export default function ScrollToTopButton() {
 
   return (
     <Activity mode={isVisible ? "visible" : "hidden"}>
-      <Button onClick={scrollToTopHandler} variant="outline" size="icon-lg" className="fixed dark:bg-background/70 dark:backdrop-blur-xl z-20 md:bottom-5 md:right-5 bottom-4 right-4">
+      <Button onClick={scrollToTopHandler} variant="outline" size="icon-lg" className="fixed dark:bg-background/70 dark:backdrop-blur-xl z-20 bottom-4 right-4">
         <ArrowUp />
       </Button>
     </Activity>

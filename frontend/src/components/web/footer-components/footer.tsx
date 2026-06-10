@@ -28,7 +28,7 @@ async function Footer() {
   }));
 
   return (
-    <footer className="bg-background relative z-10 lg:mt-40 md:mt-34 sm:mt-28 mt-16 border-t-2 border-input/60 overflow-hidden">
+    <footer className="bg-background relative z-10 lg:mt-40 md:mt-34 mt-52 border-t-2 border-input/60 overflow-hidden">
       <div className="container max-w-7xl mx-auto pt-16 lg:px-8 md:px-6 px-4">
         <div className="grid grid-cols-7 gap-x-6 gap-y-16">
           <div className="lg:col-span-3 col-span-7">
@@ -80,7 +80,7 @@ async function Footer() {
           </div>
         </div>
       </div>
-      <ShutterStickyPattern className="lg:-top-130 -top-222 right-0 -rotate-45 h-[250%] -z-10 md:opacity-100 opacity-80" />
+      <ShutterStickyPattern className="lg:-top-130 -top-222 right-0 -rotate-45 h-[250%] -z-10 md:opacity-50 opacity-30" />
     </footer>
   );
 }

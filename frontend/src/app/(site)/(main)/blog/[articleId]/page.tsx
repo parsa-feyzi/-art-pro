@@ -46,9 +46,11 @@ async function ArticlePage({ params }: Props) {
   // await delay(2000);
 
   return (
-    <main>
-      <ArticlePageHead {...article} />
-      <p className="leading-8">{article.content}</p>
+    <main className="w-screen">
+      <div className="container p-container max-w-7xl mx-auto">
+        <ArticlePageHead {...article} />
+        <p className="leading-8">{article.content}</p>
+      </div>
     </main>
   );
 }

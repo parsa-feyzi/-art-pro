@@ -1,9 +1,11 @@
 import Box from "@/src/components/ui/box";
 import Skeleton from "@/src/components/ui/skeleton";
+import { cn } from "@/src/lib/utils";
+import { ClassNameValue } from "tailwind-merge";
 
-function ArticleBoxSkeleton() {
+function ArticleBoxSkeleton({ className }: { className?: ClassNameValue }) {
   return (
-    <Box className="flex flex-col justify-between">
+    <Box className={cn("flex flex-col justify-between", className)}>
       <div>
         <Skeleton className="w-4/5 h-10 mb-5" />
         <div>

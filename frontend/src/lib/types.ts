@@ -1,6 +1,8 @@
-import { signUpSchema } from "@/src/features/auth";
+
 import { ObjectIdQueryTypeCasting } from "mongoose";
 import z from "zod";
+import { signUpSchema } from "../features/auth/schemas/auth";
+import { Dispatch, SetStateAction } from "react";
 
 // types
 export type DefaultDBInfos = {
@@ -23,6 +25,8 @@ export type ButtonVariants = "default" | "destructive" | "outline" | "secondary"
 export type ArticleStatus = "published" | "draft";
 
 export type ServerAction = (formData: FormData) => Promise<any>
+
+export type SetState<T> = Dispatch<SetStateAction<T>>
 
 // interfaces
 export interface User extends Pick<SignUpInfo, "userName" | "email"> {

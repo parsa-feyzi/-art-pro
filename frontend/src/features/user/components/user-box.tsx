@@ -6,10 +6,14 @@ import UserBoxArticleItem from "./user-box-article-item";
 import { ArrowRight, Star } from "lucide-react";
 import Link from "next/link";
 import { Activity } from "react";
+import { ClassNameValue } from "tailwind-merge";
+import { cn } from "@/src/lib/utils";
 
-function UserBox({ userName, email, profileImage, articles, _id }: User) {
+type Props = User & { className?: ClassNameValue }
+
+function UserBox({ userName, email, profileImage, articles, _id, className }: Props) {
   return (
-    <Box className="flex flex-col justify-between">
+    <Box className={cn("flex flex-col justify-between", className)}>
       <div>
         <div className="flex justify-between gap-4">
           <Link href={`/user/${_id}`} className="flex items-center gap-2">
@@ -28,12 +32,12 @@ function UserBox({ userName, email, profileImage, articles, _id }: User) {
           {articles.slice(0, 3).map((article) => (
             <UserBoxArticleItem {...article} key={article._id} />
           ))}
-          <Activity mode={articles.length - 2 ? "visible" : "hidden"}>
+          <Activity mode={(articles.length - 3) > 3 ? "visible" : "hidden"}>
             <Link
               href={`/user/${_id}`}
               className="text-xs flex pt-1 items-end gap-1 text-muted-foreground hover:text-primary hover:gap-2 transition-all duration-200"
             >
-              <div>and {articles.length - 2} other articles</div>
+              <div>and {articles.length - 3} other articles</div>
               <ArrowRight className="size-3.5 translate-y-px" />
             </Link>
           </Activity>

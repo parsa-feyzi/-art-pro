@@ -14,7 +14,7 @@ function NavbarLinksGroup({ itemsSize="default", className }: Props) {
       <NavbarLink size={itemsSize}>Home</NavbarLink>
       <NavbarLink size={itemsSize} path="/blog">Blog</NavbarLink>
       <NavbarLink size={itemsSize} path="/about-us">About us</NavbarLink>
-      <NavbarLink size={itemsSize} path="/dashboard">Create Article</NavbarLink>
+      <NavbarLink size={itemsSize} path="/dashboard/articles-create">Create Article</NavbarLink>
     </div>
   );
 }

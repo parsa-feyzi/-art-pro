@@ -8,7 +8,7 @@ interface Props {
 async function SiteProvider({ children }: Props) {
   return (
     <main>
-      <section className="container max-w-7xl mx-auto lg:px-8 md:px-6 px-4">
+      <section>
         {children}
         <ScrollToTopButton />
       </section>
