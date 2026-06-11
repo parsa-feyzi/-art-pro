@@ -2,7 +2,7 @@
 
 import { Article } from "@/src/lib/types"
 import { Suspense } from "react"
-import { DataTable } from "../../data-table/components/data-table"
+import { DataTable } from "../../../data-table/components/data-table"
 import { toast } from "sonner"
 
 interface Props {

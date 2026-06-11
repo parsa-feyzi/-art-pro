@@ -5,7 +5,7 @@ import {
     SidebarProvider,
 } from "@/src/components/ui/sidebar"
 //
-import DashboardSidebar from "@/src/components/web/dashboard-components/dashboard-sidebar-components/dashboard-sidebar"
+import DashboardSidebar from "@/src/components/web/dashboard-components/dashboard-sidebar"
 import DashboardNavbar from "@/src/components/web/dashboard-components/dashboard-navbar"
 //
 

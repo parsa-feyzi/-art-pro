@@ -2,7 +2,7 @@ import { BookOpen, PenTool, ShieldCheck, Users } from "lucide-react";
 
 import { ClassNameValue } from "tailwind-merge";
 import { cn } from "@/src/lib/utils";
-import { FeatureBox } from "@/src/features/about-us/components/feature-box";
+import { FeatureBox } from "@/src/features/about-us/components/boxes/feature-box";
 
 const features = [
   {

@@ -1,5 +1,5 @@
 import Collapsible from "@/src/components/ui/collapsible";
-import { AboutStatisticBox } from "./about-statistic-box";
+import { AboutStatisticBox } from "./boxes/about-statistic-box";
 
 const stats = [
   { label: "Articles Published", value: 10000 },

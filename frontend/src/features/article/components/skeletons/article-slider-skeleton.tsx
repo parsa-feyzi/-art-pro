@@ -7,8 +7,8 @@ function ArticleSliderSkeleton() {
   return (
     <HomeSection title={<Skeleton className="md:h-10 md:w-80 sm:h-8 sm:w-72 h-6 w-64" />}>
       <Collapsible>
-        <ArticleBoxSkeleton />
-        <ArticleBoxSkeleton />
+        <ArticleBoxSkeleton className="lg:flex hidden" />
+        <ArticleBoxSkeleton className="sm:flex hidden" />
         <ArticleBoxSkeleton />
       </Collapsible>
     </HomeSection>

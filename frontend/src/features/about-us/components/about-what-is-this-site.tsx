@@ -1,8 +1,8 @@
 import Collapsible from "@/src/components/ui/collapsible";
-import { AboutBox } from "./about-box";
+import { AboutBox } from "./boxes/about-box";
 import { LayoutGrid, Zap } from "lucide-react";
-import { AboutBoxList } from "./about-box-list";
-import { MissionOrVisionBox } from "./mission-or-vision-box";
+import { AboutBoxList } from "./boxes/about-box-list";
+import { MissionOrVisionBox } from "./boxes/mission-or-vision-box";
 import IconBox from "@/src/components/ui/icon-box";
 
 const whatIsArtpro = [

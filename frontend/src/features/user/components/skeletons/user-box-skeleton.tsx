@@ -1,9 +1,13 @@
 import Box from "@/src/components/ui/box";
 import Skeleton from "@/src/components/ui/skeleton";
+import { cn } from "@/src/lib/utils";
+import { ClassNameValue } from "tailwind-merge";
 
-function UserBoxSkeleton() {
+interface Props { className?: ClassNameValue }
+
+function UserBoxSkeleton({ className }: Props) {
   return (
-    <Box>
+    <Box className={cn(className)}>
       <div className="flex items-center gap-2">
         <Skeleton className="size-10 rounded-full" />
         <div>

@@ -4,6 +4,7 @@ import { LucideIcon } from "lucide-react"
 //
 import { SidebarMenuButton, SidebarMenuItem } from "@/src/components/ui/sidebar"
 import { usePathname } from "next/navigation"
+import { cn } from "@/src/lib/utils"
 //
 
 interface Props {
@@ -14,14 +15,14 @@ interface Props {
     }
 }
 
-function DashboardSidebarLink({ item }: Props) {
+function SidebarLink({ item }: Props) {
     const pathName = usePathname();
 
     return (
         <SidebarMenuItem>
             <Link href={item.url}>
-                <SidebarMenuButton className="cursor-pointer!" tooltip={item.title} isActive={pathName === item.url} >
-                    {item.icon && <item.icon className="text-sidebar-primary" />}
+                <SidebarMenuButton className="cursor-pointer! py-5!" tooltip={item.title} isActive={pathName === item.url} >
+                    {item.icon && <item.icon className={cn(pathName === item.url ? "text-muted-foreground" : "text-tertiary")} />}
                     <span className="font-medium">{item.title}</span>
                 </SidebarMenuButton>
             </Link>
@@ -29,4 +30,4 @@ function DashboardSidebarLink({ item }: Props) {
     )
 }
 
-export default DashboardSidebarLink
+export default SidebarLink

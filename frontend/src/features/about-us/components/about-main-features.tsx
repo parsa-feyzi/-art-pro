@@ -1,14 +1,14 @@
-import MainFeaturesContainer from "../../../components/web/main-features-container";
+import MainFeaturesContainer from "./main-features-container";
 import { AboutSection } from "./about-section";
 
+interface Props { hasBorder?: boolean }
 
-
-export function AboutMainFeatures() {
+export function AboutMainFeatures({ hasBorder }: Props) {
   return (
     <AboutSection
       title="Why Artpro?"
       desc="A platform designed to keep publishing simple and reading enjoyable."
-      hasBorder
+      hasBorder={hasBorder}
     >
       <div className="mt-10">
         <MainFeaturesContainer />

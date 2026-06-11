@@ -1,7 +1,7 @@
 import { SearchParams } from "@/src/lib/types";
 import BlogNotFoundSearch from "./blog-not-found-search";
 import BlogBodyArticlesRenderer from "./blog-body-articles-renderer";
-import ArticlesFilterHandler from "../lib/articlesFilter";
+import ArticlesFilterHandler from "../../lib/articlesFilter";
 
 interface Props {
   searchParams: SearchParams;

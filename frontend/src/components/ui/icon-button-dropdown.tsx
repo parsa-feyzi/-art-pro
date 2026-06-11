@@ -30,7 +30,6 @@ function IconButtonDropdown({
 }: IconButtonDropdownProps) {
   return (
     <>
-      <div className="lg:block hidden">
           <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer" asChild>
               <Button variant="outline" size="icon">
@@ -42,20 +41,6 @@ function IconButtonDropdown({
               {children}
             </IconButtonDropdownMenuContent>
           </DropdownMenu>
-      </div>
-      <div className="lg:hidden block">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer" asChild>
-              <Button variant="outline" size="icon-sm">
-                {buttonIcon}
-                <span className="sr-only">{description}</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <IconButtonDropdownMenuContent dropdownMenuItems={dropdownMenuItems}>
-              {children}
-            </IconButtonDropdownMenuContent>
-          </DropdownMenu>
-      </div>
     </>
   );
 }

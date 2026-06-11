@@ -5,18 +5,22 @@ import Link from "next/link";
 import ArticlePublishStatusDot from "@/src/components/web/article-publish-status-dot";
 import MultiAuthorsPattern from "./multi-authors-pattern";
 import OneAuthorPattern from "./one-author-pattern";
+import { cn } from "@/src/lib/utils";
+import { ClassNameValue } from "tailwind-merge";
 
-function ArticleBox({ title, content, authors, status, _createdAt, _id  }: Article) {
+type Props = Article & { className?: ClassNameValue }
+
+function ArticleBox({ title, content, authors, status, _createdAt, _id, className }: Props) {
   return (
-    <Box className="flex flex-col justify-between hover:border-primary">
+    <Box className={cn("transition-all duration-200 flex flex-col justify-between hover:border-primary h-full", className)}>
       <div>
         <div className="flex justify-between gap-4">
-          <Link href={`/blog/${_id}`} className="font-bold text-lg min-h-10">
+          <Link href={`/blog/${_id}`} className="font-bold sm:text-lg text-base min-h-10">
             {title}
           </Link>
           <ArticlePublishStatusDot status={status} className="mt-3" />
         </div>
-        <div className="text-sm text-muted-foreground line-clamp-3 pt-2 leading-5.5">
+        <div className="sm:text-sm text-xs text-muted-foreground line-clamp-3 pt-2 sm:leading-5.5 leading-5">
           {content}
         </div>
       </div>

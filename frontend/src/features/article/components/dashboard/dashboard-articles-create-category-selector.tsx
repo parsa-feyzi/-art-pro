@@ -3,9 +3,9 @@
 import { useState } from "react"
 import { Activity } from "react"
 import { Control, Controller } from "react-hook-form"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ChevronsUpDown } from "lucide-react"
 import { cn } from "@/src/lib/utils"
-import { CreateArticleInfo } from "@/src/lib/types"
+
 //
 import {
     Command,
@@ -18,6 +18,7 @@ import {
 } from "@/src/components/ui/command"
 import { Input } from "@/src/components/ui/input"
 import { FieldError } from "@/src/components/ui/field"
+import { CreateArticleInfo } from "../../types/types"
 
 type category = Record<"title" | "value", string>
 
@@ -55,7 +56,7 @@ const categories: category[] = [
         value: "calendar-page 2"
     },
     {
-        title: "Mmd Calendar",
+        title: "Mmd Cal",
         value: "mmd-calendar 2"
     },
 ]
@@ -75,7 +76,7 @@ function DashboardArticlesCreateCategorySelector({ control }: Props) {
                 const selected = categories.find((c) => c.value === field.value)
 
                 return (
-                    <div className="relative col-span-5 min-h-24">
+                    <div className="relative lg:col-span-5 sm:col-span-6 col-span-12 min-h-24">
                         <label className="text-sm text-muted-foreground font-medium cursor-pointer" htmlFor="article-category">
                             Article Category
                         </label>
@@ -124,7 +125,9 @@ function DashboardArticlesCreateCategorySelector({ control }: Props) {
                                 </Command>
                             </CommandDialog>
                         </div>
-                        <ChevronDown className="text-tertiary/80 absolute top-11 right-4 pointer-events-none" />
+                        <label className="absolute top-[45px] right-3 bg-sidebar px-2 cursor-pointer" htmlFor="article-category">
+                            <ChevronsUpDown className="w-5! h-5! text-tertiary/80" />
+                        </label>
                         <Activity mode={fieldState.invalid ? "visible" : "hidden"}>
                             <FieldError className="mt-1" errors={[fieldState.error]} />
                         </Activity>

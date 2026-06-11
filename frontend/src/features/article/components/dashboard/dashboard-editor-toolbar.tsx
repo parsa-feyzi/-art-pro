@@ -24,6 +24,7 @@ import {
 import DashboardEditorToolbarButton from './dashboard-editor-toolbar-button'
 import { menuBarStateSelector } from '@/src/features/article/lib/menu-bar-state-selector'
 import DashboardEditorToolbarButtonGroup from './dashboard-editor-toolbar-button-group'
+import DashboardEditorToolbarButtonGroupSeparator from './dashboard-editor-toolbar-button-group-separator'
 
 type Props = {
     editor: Editor | null
@@ -39,7 +40,7 @@ function DashboardEditorToolbar({ editor, onImageUpload }: Props) {
     })
 
     return (
-        <div className="flex items-center flex-wrap gap-3 border-b px-3 py-2 bg-sidebar">
+        <div className="flex items-center gap-3 border-b px-3 py-2 bg-sidebar overflow-x-auto">
             {/* Undo/Redo */}
             <DashboardEditorToolbarButtonGroup>
                 <DashboardEditorToolbarButton
@@ -55,9 +56,7 @@ function DashboardEditorToolbar({ editor, onImageUpload }: Props) {
                     desc='Redo'
                 />
             </DashboardEditorToolbarButtonGroup>
-            
-            <div className='w-0.5 bg-input h-6'></div>
-            
+            <DashboardEditorToolbarButtonGroupSeparator />
             {/* Headings */}
             <DashboardEditorToolbarButtonGroup>
                 <DashboardEditorToolbarButton
@@ -106,9 +105,7 @@ function DashboardEditorToolbar({ editor, onImageUpload }: Props) {
                     desc='Ordered list'
                 />
             </DashboardEditorToolbarButtonGroup>
-            
-            <div className='w-0.5 bg-input h-6'></div>
-            
+            <DashboardEditorToolbarButtonGroupSeparator />
             {/* Text formatting */}
             <DashboardEditorToolbarButtonGroup>
                 <DashboardEditorToolbarButton
@@ -169,9 +166,7 @@ function DashboardEditorToolbar({ editor, onImageUpload }: Props) {
                     desc='Link'
                 />
             </DashboardEditorToolbarButtonGroup>
-
-            <div className='w-0.5 bg-input h-6'></div>
-            
+            <DashboardEditorToolbarButtonGroupSeparator />
             {/* Text Align */}
             <DashboardEditorToolbarButtonGroup>
                 <DashboardEditorToolbarButton
@@ -208,9 +203,7 @@ function DashboardEditorToolbar({ editor, onImageUpload }: Props) {
                     desc='Align right'
                 />
             </DashboardEditorToolbarButtonGroup>
-            
-            <div className='w-0.5 bg-input h-6'></div>
-            
+            <DashboardEditorToolbarButtonGroupSeparator />
             {/* Links and Images */}
             <DashboardEditorToolbarButtonGroup>
                 

@@ -1,6 +1,6 @@
 import { BookOpen, Feather, PenTool } from "lucide-react";
 import { AboutSection } from "./about-section"
-import { AboutWorkStepBox } from "./about-work-step-box";
+import { AboutWorkStepBox } from "./boxes/about-work-step-box";
 
 const steps = [
   {

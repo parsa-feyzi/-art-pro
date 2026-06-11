@@ -1,4 +1,4 @@
-import DashboardArticlesCreateForm from "@/src/features/article/components/dashboard-articles-create-form"
+import DashboardArticlesCreateForm from "@/src/features/article/components/dashboard/dashboard-articles-create-form"
 
 
 function ArticleCreatePage() {

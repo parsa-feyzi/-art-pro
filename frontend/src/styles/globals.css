@@ -130,7 +130,12 @@
   }
 }
 
-/* custom styles */
+/* __custom classes__ */
+.p-container {
+  @apply lg:px-8 md:px-6 px-4
+}
+
+/* __custom styles__ */
 /* editor styles */
 .tiptap:first-child {
   @apply outline-none!
@@ -176,7 +181,7 @@
   @apply dark:bg-input/30! bg-accent/50! rounded px-1 pb-0.5! pt-px! mx-0.5
 }
 
-/* animations */
+/* __animations__ */
 .animate-spinner {
   animation: animate-spinner 1s infinite linear ;
   -webkit-animation: animate-spinner 1s infinite linear ;

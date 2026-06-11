@@ -5,7 +5,7 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useArticleSearchContext } from "../context/article-search-context";
+import { useArticleSearchContext } from "../../context/article-search-context";
 
 function HomeLandingSearchBox() {
   const { searchValue, setSearchValue } = useArticleSearchContext();

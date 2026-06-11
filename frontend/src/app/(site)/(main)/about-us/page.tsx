@@ -11,23 +11,25 @@ import { AboutWorkSteps } from "@/src/features/about-us/components/about-work-st
 
 function AboutUsPage() {
   return (
-    <main className="min-h-screen">
-      {/* Hero */}
-      <AboutHero />
-      {/* Stats */}
-      <AboutStatistics />
-      {/* What is Artpro */}
-      <AboutWhatIsThisSite />
-      {/* How it works */}
-      <AboutWorkSteps />
-      {/* Why Artpro */}
-      <AboutMainFeatures />
-      {/* Social & Collaboration */}
-      <AboutSocialFeatures />
-      {/* Writers & Readers */}
-      <AboutForWritersReaders />
-      {/* CTA */}
-      <AboutCTA />
+    <main className="min-h-screen w-screen">
+      <div className="container p-container max-w-7xl mx-auto">
+        {/* Hero */}
+        <AboutHero />
+        {/* Stats */}
+        <AboutStatistics />
+        {/* What is Artpro */}
+        <AboutWhatIsThisSite />
+        {/* How it works */}
+        <AboutWorkSteps />
+        {/* Why Artpro */}
+        <AboutMainFeatures />
+        {/* Social & Collaboration */}
+        <AboutSocialFeatures />
+        {/* Writers & Readers */}
+        <AboutForWritersReaders />
+        {/* CTA */}
+        <AboutCTA />
+      </div>
     </main>
   );
 }

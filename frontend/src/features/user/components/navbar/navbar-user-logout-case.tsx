@@ -1,4 +1,4 @@
-import NavbarLink from "./navbar-link";
+import NavbarLink from "../../../../components/web/navbar-components/navbar-link";
 
 function NavbarUserLogoutCase() {
   return (

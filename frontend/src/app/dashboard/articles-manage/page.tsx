@@ -1,6 +1,6 @@
 import { Article } from "@/src/lib/types"
 //
-import { DashboardArticlesManageTable } from "@/src/features/article/components/dashboard-articles-manage-table";
+import { DashboardArticlesManageTable } from "@/src/features/article/components/dashboard/dashboard-articles-manage-table";
 //
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;

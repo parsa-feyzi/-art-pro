@@ -5,11 +5,11 @@ import { Activity } from 'react'
 import { Control, Controller } from 'react-hook-form'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { editorExtensions } from '@/src/features/article/lib/editor-config'
-import { CreateArticleInfo } from '../types/types'
+import { CreateArticleInfo } from '../../types/types'
 import { cn } from '@/src/lib/utils'
 import DashboardEditorToolbar from './dashboard-editor-toolbar'
 import { FieldError } from '@/src/components/ui/field'
-import DashboardEditorSkeleton from './skeletons/dashboard-editor-skeleton'
+import DashboardEditorSkeleton from '../skeletons/dashboard-editor-skeleton'
 
 interface Props {
     control: Control<CreateArticleInfo>

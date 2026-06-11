@@ -1,6 +1,4 @@
-import {
-    EllipsisVertical,
-} from "lucide-react"
+import { ChevronsUpDown } from "lucide-react"
 //
 import {
     SidebarHeader,
@@ -28,8 +26,8 @@ function DashboardSidebarHeader() {
                                 <div className="text-[11px] text-tertiary">{"example@gmail.com"}</div>
                             </div>
                         </div>
-                        <Button asChild variant="link" size="icon-sm" className="col-span-1 text-foreground hover:text-black">
-                            <EllipsisVertical className="text-muted-foreground" />
+                        <Button asChild variant="link" size="icon-sm" className="col-span-1 text-foreground hover:text-foreground">
+                            <ChevronsUpDown className="text-tertiary" />
                         </Button>
                     </SidebarMenuButton>
                 </SidebarMenuItem>

@@ -29,7 +29,7 @@ export function DataTableFilters({ searchTerm, statusFilter, onSearchChange, onS
           placeholder="Search by title, category, or author..."
           value={searchTerm}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="pl-9"
+          className="pl-9 shadow-xs"
         />
       </div>
       <div className="flex gap-2">
