@@ -9,3 +9,9 @@ export interface AuthContextValue {
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+export interface AuthState {
+  isLogin: boolean
+  login: () => void
+  logout: () => void
+}

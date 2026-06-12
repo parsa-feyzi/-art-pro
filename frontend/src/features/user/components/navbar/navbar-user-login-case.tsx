@@ -1,4 +1,5 @@
-import { logoutAction } from '@/src/app/(site)/(main)/logout.actions';
+import { logoutAction } from '@/src/features/auth/server/logout.actions';
+//
 import IconButtonDropdown from '@/src/components/ui/icon-button-dropdown'
 import { useAuthContext } from '@/src/features/auth/context/auth-context';
 

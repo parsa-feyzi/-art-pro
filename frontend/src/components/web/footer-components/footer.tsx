@@ -28,7 +28,7 @@ async function Footer() {
   }));
 
   return (
-    <footer className="bg-background relative z-10 lg:mt-40 md:mt-34 mt-52 border-t-2 border-input/60 overflow-hidden">
+    <footer className="bg-background relative z-10 mt-52 border-t-2 border-input/60 overflow-hidden">
       <div className="container max-w-7xl mx-auto pt-16 lg:px-8 md:px-6 px-4">
         <div className="grid grid-cols-7 gap-x-6 gap-y-16">
           <div className="lg:col-span-3 col-span-7">

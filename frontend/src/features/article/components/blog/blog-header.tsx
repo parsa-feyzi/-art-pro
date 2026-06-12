@@ -2,18 +2,26 @@
 
 import { Button } from "@/src/components/ui/button";
 import { BrushCleaning, Search } from "lucide-react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useEffectEvent, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Input } from "@/src/components/ui/input";
-import { useArticleSearchContext } from "@/src/features/article/context/article-search-context";
+import { useArticleSearchStore } from "../../store/useArticleSearchStore";
 
 function BlogHeader() {
-  const { searchValue, setSearchValue } = useArticleSearchContext();
+  const { searchValue, updateSearchValue, clearSearchValue } = useArticleSearchStore();
   const [isSearched, setIsSearched] = useState(false);
 
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const onInter = useEffectEvent(() => {
+    searchValue && setIsSearched(true);
+  })
+
+  useEffect(() => {
+    onInter()
+  }, []);
 
   useEffect(() => {
     isSearched && setSearchParams();
@@ -23,7 +31,7 @@ function BlogHeader() {
     const params = new URLSearchParams(searchParams.toString());
     const articleSearchParamsValue = params.get("title");
     if (!articleSearchParamsValue) {
-      setSearchValue("");
+      clearSearchValue();
     }
   }, [pathname]);
 
@@ -44,13 +52,13 @@ function BlogHeader() {
     // create new url whit pathname (/blog) + deleted searchParams
     router.push(`${pathname}?${params.toString()}`);
     // make searchValue state empty
-    searchValue && setSearchValue("");
+    searchValue && clearSearchValue();
     //
     setIsSearched(false);
   };
 
   const searchValueAction = (e: ChangeEvent<HTMLInputElement>) =>
-    setSearchValue(e.target.value);
+    updateSearchValue(e.target.value);
 
   const searchBtnClickHandler = () => {
     searchValue && setIsSearched(true);

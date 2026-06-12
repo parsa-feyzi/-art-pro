@@ -7,7 +7,7 @@ import { PlayCircle, RotateCcw, Save, Trash2Icon, Upload } from "lucide-react"
 //
 import DashboardEditor from "@/src/features/article/components/dashboard/dashboard-editor"
 import DashboardArticlesCreateCategorySelector from "@/src/features/article/components/dashboard/dashboard-articles-create-category-selector"
-import { saveArticle } from "@/src/features/article/server-actions/create-article.actions"
+import { saveArticle } from "@/src/features/article/server/create-article.actions"
 import { Button } from "@/src/components/ui/button"
 import { FieldError } from "@/src/components/ui/field"
 import { CreateArticleInfo } from "../../types/types"
@@ -83,7 +83,7 @@ function DashboardArticlesCreateForm() {
                 </div>
                 <div className="sm:w-full flex justify-end">
                     <Button type="button" variant={"secondary"} className="text-red-700 dark:text-red-400 sm:inline-flex hidden" >
-                        Remove Changes
+                        Undo Changes
                         <RotateCcw />
                     </Button>
                     <Button type="button" variant={"secondary"} size="icon-lg" className="text-red-700 dark:text-red-400 sm:hidden inline-flex" >

@@ -5,10 +5,10 @@ import { Search } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useArticleSearchContext } from "../../context/article-search-context";
+import { useArticleSearchStore } from "../../store/useArticleSearchStore";
 
 function HomeLandingSearchBox() {
-  const { searchValue, setSearchValue } = useArticleSearchContext();
+  const { searchValue, updateSearchValue, clearSearchValue } = useArticleSearchStore();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -16,12 +16,12 @@ function HomeLandingSearchBox() {
     const params = new URLSearchParams(searchParams.toString());
     const articleSearchParamsValue = params.get("title");
     if (!articleSearchParamsValue) {
-      setSearchValue("");
+      clearSearchValue();
     }
   }, [pathname]);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    updateSearchValue(e.target.value);
   };
 
   return (

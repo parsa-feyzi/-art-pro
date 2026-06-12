@@ -2,7 +2,7 @@ import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "./theme-provider";
 import ScrollToTop from "@/src/components/web/scroll-to-top";
 import { Suspense } from "react";
-import AuthProviderWrapper from "../features/article/providers/auth-provider-wrapper";
+import AuthProviderWrapper from "../features/auth/providers/auth-provider-wrapper";
 // import { AuthProviderWrapper } from "@/src/features/auth";
 
 interface Props {
