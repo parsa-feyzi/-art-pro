@@ -1,5 +1,4 @@
 import Navbar from "@/src/components/web/navbar-components/navbar";
-import ArticleSearchProvider from "../features/article/providers/article-search-provider";
 import { SidebarProvider } from "../components/ui/sidebar";
 import MainSidebar from "../components/web/sidebar-components/main-sidebar";
 
@@ -11,7 +10,6 @@ interface Props {
 function MainProvider({ children }: Props) {
   return (
     <SidebarProvider>
-      <ArticleSearchProvider>
         <section>
           <Navbar />
           <MainSidebar />
@@ -19,7 +17,6 @@ function MainProvider({ children }: Props) {
             {children}
           </section>
         </section>
-      </ArticleSearchProvider>
     </SidebarProvider>
   );
 }

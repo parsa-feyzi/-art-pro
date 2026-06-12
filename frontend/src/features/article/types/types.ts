@@ -7,3 +7,9 @@ export interface ArticleSearchContextValue {
     searchValue: string,
     setSearchValue: React.Dispatch<React.SetStateAction<string>>
 }
+
+export interface SearchState {
+    searchValue: string
+    updateSearchValue: (value: string) => void
+    clearSearchValue: () => void
+}
