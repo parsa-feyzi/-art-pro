@@ -1,0 +1,24 @@
+{
+    "name": "art-pro/backend",
+    "description": "Art Pro Backend",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ali",
+            "email": "mrchester33mr@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Core\\": "core/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "firebase/php-jwt": "^6.11"
+    }
+}
