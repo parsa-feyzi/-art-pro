@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Core\Http;
 
-final class JsonResponse extends Response
+class JsonResponse extends Response
 {
-    public function success(array $data = [], int $status = 200, string $message = 'Success'): void
+    public function success(array $data = [], int $status = 200, string $message = 'OK'): void
     {
         $this->json([
             'success' => true,
@@ -22,7 +22,7 @@ final class JsonResponse extends Response
             'message' => $message,
         ];
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $payload['errors'] = $errors;
         }
 

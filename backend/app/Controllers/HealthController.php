@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Core\Http\JsonResponse;
-use Core\Http\Request;
 
 final class HealthController
 {
-    public function index(Request $request): void
+    public function __construct(
+        private readonly JsonResponse $response = new JsonResponse()
+    ) {
+    }
+
+    public function index(): void
     {
-        (new JsonResponse())->success(
+        $this->response->success(
             [
-                'version' => '1.0.0',
-                'environment' => $_ENV['APP_ENV'] ?? 'unknown',
+                'status' => 'ok',
             ],
             200,
             'Art Pro API Running'
