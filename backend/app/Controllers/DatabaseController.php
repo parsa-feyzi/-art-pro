@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Services\UserService;
+use Core\Database\Database;
 use Core\Http\JsonResponse;
 use Throwable;
 
-final class UserController
+final class DatabaseController
 {
     public function __construct(
-        private readonly UserService $users = new UserService(),
+        private readonly Database $db = new Database(),
         private readonly JsonResponse $response = new JsonResponse()
     ) {
     }
 
-    public function show(string $username): void
+    public function index(): void
     {
         try {
-            $user = $this->users->publicProfile($username);
+            $result = $this->db->first('SELECT NOW() AS now');
 
             $this->response->success(
                 [
-                    'user' => $user,
+                    'database_time' => $result['now'] ?? null,
                 ],
                 200,
-                'User profile loaded successfully.'
+                'Database connection is working'
             );
         } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 404);
+            $this->response->error($e->getMessage(), 500);
         }
     }
 }
