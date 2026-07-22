@@ -6,7 +6,6 @@ namespace App\Controllers;
 
 use Core\Database\Database;
 use Core\Http\JsonResponse;
-use Throwable;
 
 final class DatabaseController
 {
@@ -18,18 +17,12 @@ final class DatabaseController
 
     public function index(): void
     {
-        try {
-            $result = $this->db->first('SELECT NOW() AS now');
+        $result = $this->db->first('SELECT NOW() AS now');
 
-            $this->response->success(
-                [
-                    'database_time' => $result['now'] ?? null,
-                ],
-                200,
-                'Database connection is working'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 500);
-        }
+        $this->response->success(
+            ['database_time' => $result['now'] ?? null],
+            200,
+            'Database connection is working'
+        );
     }
 }

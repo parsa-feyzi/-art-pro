@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Core\Http;
 
+use Core\Http\Exceptions\BadRequestException;
+use JsonException;
+
 final class Request
 {
     public function method(): string
@@ -41,7 +44,7 @@ final class Request
             return $this->json();
         }
 
-        return array_merge($_GET, $_POST);
+        return $_POST;
     }
 
     public function json(): array
@@ -52,9 +55,22 @@ final class Request
             return [];
         }
 
-        $decoded = json_decode($content, true);
+        try {
+            $decoded = json_decode(
+                $content,
+                false,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+        } catch (JsonException) {
+            throw new BadRequestException('Invalid JSON payload.');
+        }
 
-        return is_array($decoded) ? $decoded : [];
+        if (!$decoded instanceof \stdClass) {
+            throw new BadRequestException('The JSON payload must be an object.');
+        }
+
+        return $this->normalizeJsonValue($decoded);
     }
 
     public function headers(): array
@@ -88,5 +104,56 @@ final class Request
         }
 
         return $default;
+    }
+
+    public function file(string $key): ?array
+    {
+        $file = $_FILES[$key] ?? null;
+
+        return is_array($file) ? $file : null;
+    }
+
+    public function userAgent(): ?string
+    {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? null;
+
+        return is_string($userAgent) && $userAgent !== ''
+            ? $userAgent
+            : null;
+    }
+
+    public function ipAddress(): ?string
+    {
+        $ipAddress = $_SERVER['REMOTE_ADDR'] ?? null;
+
+        if (!is_string($ipAddress) || $ipAddress === '') {
+            return null;
+        }
+
+        return filter_var($ipAddress, FILTER_VALIDATE_IP) !== false
+            ? $ipAddress
+            : null;
+    }
+
+    private function normalizeJsonValue(mixed $value): mixed
+    {
+        if ($value instanceof \stdClass) {
+            $normalized = [];
+
+            foreach (get_object_vars($value) as $key => $item) {
+                $normalized[$key] = $this->normalizeJsonValue($item);
+            }
+
+            return $normalized;
+        }
+
+        if (is_array($value)) {
+            return array_map(
+                fn (mixed $item): mixed => $this->normalizeJsonValue($item),
+                $value
+            );
+        }
+
+        return $value;
     }
 }

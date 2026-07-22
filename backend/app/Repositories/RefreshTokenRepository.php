@@ -41,6 +41,21 @@ final class RefreshTokenRepository extends Model
         );
     }
 
+    public function findValidByHashForUpdate(string $tokenHash): array|false
+    {
+        return $this->db->first(
+            "SELECT * FROM {$this->table}
+             WHERE token_hash = :token_hash
+               AND revoked_at IS NULL
+               AND expires_at > NOW()
+             LIMIT 1
+             FOR UPDATE",
+            [
+                'token_hash' => $tokenHash,
+            ]
+        );
+    }
+
     public function revokeByHash(string $tokenHash): bool
     {
         return $this->db->statement(

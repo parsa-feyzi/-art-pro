@@ -13,6 +13,10 @@ class Response
     ): void {
         http_response_code($status);
 
+        $headers = [
+            'X-Request-ID' => RequestContext::id(),
+        ] + $headers;
+
         foreach ($headers as $name => $value) {
             header($name . ': ' . $value);
         }

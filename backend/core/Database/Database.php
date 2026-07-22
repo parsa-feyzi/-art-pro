@@ -25,7 +25,23 @@ final class Database
     public function query(string $sql, array $bindings = []): PDOStatement
     {
         $statement = $this->pdo->prepare($sql);
-        $statement->execute($bindings);
+
+        foreach ($bindings as $key => $value) {
+            $parameter = is_int($key)
+                ? $key + 1
+                : ':' . ltrim((string) $key, ':');
+
+            $type = match (true) {
+                is_int($value) => PDO::PARAM_INT,
+                is_bool($value) => PDO::PARAM_BOOL,
+                $value === null => PDO::PARAM_NULL,
+                default => PDO::PARAM_STR,
+            };
+
+            $statement->bindValue($parameter, $value, $type);
+        }
+
+        $statement->execute();
 
         return $statement;
     }

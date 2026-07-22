@@ -6,177 +6,92 @@ namespace App\Controllers;
 
 use App\Services\AuthService;
 use Core\Auth\Auth;
+use Core\Auth\AuthCookieManager;
+use Core\Config;
+use Core\Http\Exceptions\AuthenticationException;
 use Core\Http\JsonResponse;
-use Throwable;
+use Core\Http\Request;
 
 final class AuthController
 {
     public function __construct(
         private readonly AuthService $authService = new AuthService(),
-        private readonly JsonResponse $response = new JsonResponse()
+        private readonly JsonResponse $response = new JsonResponse(),
+        private readonly Request $request = new Request(),
+        private readonly AuthCookieManager $cookies = new AuthCookieManager()
     ) {
     }
 
     public function register(): void
     {
-        try {
-            $data = $this->payload();
-            $result = $this->authService->register($data);
+        $result = $this->authService->register($this->request->json());
 
-            $this->setAuthCookies($result['tokens']);
+        $this->cookies->set($result['tokens']);
 
-            $this->response->success(
-                [
-                    'user' => $result['user'],
-                    'tokens' => $result['tokens'],
-                ],
-                201,
-                'User registered successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 422);
-        }
+        $this->response->success(
+            $this->authResponseData($result),
+            201,
+            'User registered successfully.'
+        );
     }
 
     public function login(): void
     {
-        try {
-            $data = $this->payload();
+        $result = $this->authService->login($this->request->json());
 
-            $result = $this->authService->login(
-                (string) ($data['email'] ?? ''),
-                (string) ($data['password'] ?? '')
-            );
+        $this->cookies->set($result['tokens']);
 
-            $this->setAuthCookies($result['tokens']);
-
-            $this->response->success(
-                [
-                    'user' => $result['user'],
-                    'tokens' => $result['tokens'],
-                ],
-                200,
-                'Login successful.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 422);
-        }
+        $this->response->success(
+            $this->authResponseData($result),
+            200,
+            'Login successful.'
+        );
     }
 
     public function refresh(): void
     {
-        try {
-            $refreshToken = $this->refreshToken();
+        $refreshToken = $this->cookies->refreshToken();
 
-            if ($refreshToken === null) {
-                $this->response->error('Unauthorized.', 401);
-                return;
-            }
-
-            $result = $this->authService->refresh($refreshToken);
-
-            $this->setAuthCookies($result['tokens']);
-
-            $this->response->success(
-                [
-                    'user' => $result['user'],
-                    'tokens' => $result['tokens'],
-                ],
-                200,
-                'Token refreshed successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 401);
+        if ($refreshToken === null) {
+            throw new AuthenticationException();
         }
+
+        $result = $this->authService->refresh($refreshToken);
+
+        $this->cookies->set($result['tokens']);
+
+        $this->response->success(
+            $this->authResponseData($result),
+            200,
+            'Token refreshed successfully.'
+        );
     }
 
     public function logout(): void
     {
-        try {
-            $this->authService->logout($this->refreshToken());
+        $this->authService->logout($this->cookies->refreshToken());
+        $this->cookies->clear();
 
-            $this->clearAuthCookies();
-
-            $this->response->success(
-                [],
-                200,
-                'Logout successful.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 400);
-        }
+        $this->response->success([], 200, 'Logout successful.');
     }
 
     public function me(): void
     {
-        try {
-            $user = Auth::user();
-
-            $this->response->success(
-                [
-                    'user' => $user,
-                ],
-                200,
-                'Authenticated user loaded successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 401);
-        }
+        $this->response->success(
+            ['user' => Auth::user()],
+            200,
+            'Authenticated user loaded successfully.'
+        );
     }
 
-    private function payload(): array
+    private function authResponseData(array $result): array
     {
-        $content = file_get_contents('php://input');
+        $data = ['user' => $result['user']];
 
-        return json_decode($content ?: '', true) ?? [];
-    }
-
-    private function refreshToken(): ?string
-    {
-        $cookieToken = $_COOKIE['refresh_token'] ?? null;
-
-        if (is_string($cookieToken) && $cookieToken !== '') {
-            return $cookieToken;
+        if (Config::boolean('AUTH_RETURN_TOKENS', true)) {
+            $data['tokens'] = $result['tokens'];
         }
 
-        return null;
-    }
-
-    private function setAuthCookies(array $tokens): void
-    {
-        setcookie('token', (string) ($tokens['access_token'] ?? ''), [
-            'expires' => time() + (60 * 15),
-            'path' => '/',
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
-
-        setcookie('refresh_token', (string) ($tokens['refresh_token'] ?? ''), [
-            'expires' => time() + (60 * 60 * 24 * 30),
-            'path' => '/',
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
-    }
-
-    private function clearAuthCookies(): void
-    {
-        setcookie('token', '', [
-            'expires' => time() - 3600,
-            'path' => '/',
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
-
-        setcookie('refresh_token', '', [
-            'expires' => time() - 3600,
-            'path' => '/',
-            'secure' => false,
-            'httponly' => true,
-            'samesite' => 'Lax',
-        ]);
+        return $data;
     }
 }

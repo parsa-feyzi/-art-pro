@@ -219,7 +219,7 @@ final class ArticleRepository extends Model
             SELECT
                 u.id,
                 u.username,
-                u.email,
+                u.profile_image,
                 aa.role_in_article,
                 aa.created_at
             FROM article_authors aa

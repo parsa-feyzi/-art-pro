@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use Core\Auth\Auth;
 use Core\Storage\Storage;
 use RuntimeException;
 
@@ -29,7 +28,14 @@ final class UploadService
         $ok = $this->users->updateAvatar((int) $actor['id'], $uploaded['path']);
 
         if (!$ok) {
+            $this->storage->delete($uploaded['path']);
             throw new RuntimeException('Failed to update avatar.');
+        }
+
+        $previousAvatar = $actor['profile_image'] ?? null;
+
+        if (is_string($previousAvatar) && $previousAvatar !== $uploaded['path']) {
+            $this->storage->delete($previousAvatar);
         }
 
         $user = $this->users->findById((int) $actor['id']);
@@ -38,7 +44,7 @@ final class UploadService
             throw new RuntimeException('User not found.');
         }
 
-        unset($user['password_hash']);
+        unset($user['password_hash'], $user['auth_version'], $user['deleted_at']);
 
         return [
             'user' => $user,

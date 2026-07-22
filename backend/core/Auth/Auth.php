@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Auth;
 
-use App\Models\User;
-use RuntimeException;
+use App\Repositories\UserRepository;
+use Core\Http\Exceptions\AuthenticationException;
 use Throwable;
 
 final class Auth
@@ -15,24 +15,34 @@ final class Auth
         $token = self::token();
 
         if ($token === null) {
-            throw new RuntimeException('Unauthorized.');
+            throw new AuthenticationException();
         }
 
         $payload = Jwt::decode($token);
-
         $userId = (int) ($payload->sub ?? 0);
 
         if ($userId <= 0) {
-            throw new RuntimeException('Invalid token payload.');
+            throw new AuthenticationException('Invalid token payload.');
         }
 
-        $user = (new User())->find($userId);
+        $user = (new UserRepository())->findById($userId);
 
-        if (!$user) {
-            throw new RuntimeException('User not found.');
+        if (
+            !$user
+            || (int) ($user['is_active'] ?? 0) !== 1
+            || ($user['deleted_at'] ?? null) !== null
+        ) {
+            throw new AuthenticationException('User session is no longer active.');
         }
 
-        unset($user['password_hash']);
+        $tokenVersion = (int) ($payload->ver ?? 0);
+        $currentVersion = (int) ($user['auth_version'] ?? 0);
+
+        if ($tokenVersion <= 0 || $tokenVersion !== $currentVersion) {
+            throw new AuthenticationException('User session has been revoked.');
+        }
+
+        unset($user['password_hash'], $user['auth_version'], $user['deleted_at']);
 
         return $user;
     }
@@ -49,16 +59,17 @@ final class Auth
 
     public static function token(): ?string
     {
-        $cookieToken = $_COOKIE['token'] ?? null;
+        $cookieName = (new AuthCookieManager())->accessCookieName();
+        $cookieToken = $_COOKIE[$cookieName] ?? null;
 
         if (is_string($cookieToken) && $cookieToken !== '') {
             return $cookieToken;
         }
 
-        $header = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+        $header = (string) ($_SERVER['HTTP_AUTHORIZATION'] ?? '');
 
-        if (str_starts_with($header, 'Bearer ')) {
-            return trim(substr($header, 7));
+        if (preg_match('/\ABearer\s+(.+)\z/i', trim($header), $matches) === 1) {
+            return trim($matches[1]);
         }
 
         return null;

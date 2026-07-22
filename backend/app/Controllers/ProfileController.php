@@ -6,91 +6,69 @@ namespace App\Controllers;
 
 use App\Services\UserService;
 use Core\Auth\Auth;
+use Core\Auth\AuthCookieManager;
 use Core\Http\JsonResponse;
-use Throwable;
+use Core\Http\Request;
 
 final class ProfileController
 {
     public function __construct(
         private readonly UserService $users = new UserService(),
-        private readonly JsonResponse $response = new JsonResponse()
+        private readonly JsonResponse $response = new JsonResponse(),
+        private readonly Request $request = new Request(),
+        private readonly AuthCookieManager $cookies = new AuthCookieManager()
     ) {
     }
 
     public function me(): void
     {
-        try {
-            $this->response->success(
-                [
-                    'user' => $this->users->me(),
-                ],
-                200,
-                'Authenticated user loaded successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 401);
-        }
+        $this->response->success(
+            ['user' => $this->users->me()],
+            200,
+            'Authenticated user loaded successfully.'
+        );
     }
 
     public function update(): void
     {
-        try {
-            $user = Auth::user();
-            $data = $this->payload();
+        $user = Auth::user();
+        $updated = $this->users->updateProfile(
+            (int) $user['id'],
+            $this->request->json()
+        );
 
-            $updated = $this->users->updateProfile((int) $user['id'], $data);
-
-            $this->response->success(
-                [
-                    'user' => $updated,
-                ],
-                200,
-                'Profile updated successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 422);
-        }
+        $this->response->success(
+            ['user' => $updated],
+            200,
+            'Profile updated successfully.'
+        );
     }
 
     public function changePassword(): void
     {
-        try {
-            $user = Auth::user();
-            $data = $this->payload();
+        $user = Auth::user();
 
-            $this->users->changePassword((int) $user['id'], $data);
+        $this->users->changePassword(
+            (int) $user['id'],
+            $this->request->json()
+        );
 
-            $this->response->success(
-                [],
-                200,
-                'Password changed successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 422);
-        }
+        $this->cookies->clear();
+
+        $this->response->success(
+            [],
+            200,
+            'Password changed successfully. Please log in again.'
+        );
     }
 
     public function destroy(): void
     {
-        try {
-            $user = Auth::user();
+        $user = Auth::user();
 
-            $this->users->deleteAccount((int) $user['id']);
+        $this->users->deleteAccount((int) $user['id']);
+        $this->cookies->clear();
 
-            $this->response->success(
-                [],
-                200,
-                'Account deleted successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 422);
-        }
-    }
-
-    private function payload(): array
-    {
-        $content = file_get_contents('php://input');
-
-        return json_decode($content ?: '', true) ?? [];
+        $this->response->success([], 200, 'Account deactivated successfully.');
     }
 }

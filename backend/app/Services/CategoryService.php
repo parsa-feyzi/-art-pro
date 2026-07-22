@@ -6,6 +6,10 @@ namespace App\Services;
 
 use App\Repositories\CategoryRepository;
 use Core\Auth\Auth;
+use Core\Http\Exceptions\AuthorizationException;
+use Core\Http\Exceptions\ConflictException;
+use Core\Http\Exceptions\NotFoundException;
+use Core\Validation\ValidationException;
 use Core\Validation\Validator;
 use RuntimeException;
 
@@ -23,10 +27,10 @@ final class CategoryService
 
     public function show(string $slug): array
     {
-        $category = $this->categories->findBySlug($slug);
+        $category = $this->categories->findActiveBySlug($slug);
 
         if (!$category) {
-            throw new RuntimeException('Category not found.');
+            throw new NotFoundException('Category not found.');
         }
 
         return $category;
@@ -37,32 +41,31 @@ final class CategoryService
         $this->requireAdmin();
 
         $validated = (new Validator($data))->validate([
-            'name' => ['required', 'string', 'min:2', 'max:120'],
-            'slug' => ['nullable', 'string', 'min:2', 'max:160'],
+            'name' => ['required', 'trim', 'string', 'min:2', 'max:120'],
+            'slug' => ['nullable', 'trim', 'string', 'min:2', 'max:160'],
             'description' => ['nullable', 'string', 'max:2000'],
             'is_active' => ['nullable', 'boolean'],
         ]);
 
         $name = trim((string) $validated['name']);
         $slug = trim((string) ($validated['slug'] ?? ''));
-
-        if ($slug === '') {
-            $slug = $this->slugify($name);
-        }
+        $slug = $slug === '' ? $this->slugify($name) : $this->slugify($slug);
 
         if ($this->categories->existsByName($name)) {
-            throw new RuntimeException('Category name already exists.');
+            throw new ConflictException('Category name already exists.');
         }
 
         if ($this->categories->existsBySlug($slug)) {
-            throw new RuntimeException('Category slug already exists.');
+            throw new ConflictException('Category slug already exists.');
         }
 
         $categoryId = $this->categories->createCategory([
             'name' => $name,
             'slug' => $slug,
             'description' => $validated['description'] ?? null,
-            'is_active' => isset($validated['is_active']) ? (int) (bool) $validated['is_active'] : 1,
+            'is_active' => array_key_exists('is_active', $validated)
+                ? (int) (bool) $validated['is_active']
+                : 1,
         ]);
 
         if ($categoryId === false) {
@@ -85,39 +88,56 @@ final class CategoryService
         $current = $this->categories->findById($id);
 
         if (!$current) {
-            throw new RuntimeException('Category not found.');
+            throw new NotFoundException('Category not found.');
         }
 
         $validated = (new Validator($data))->validate([
-            'name' => ['required', 'string', 'min:2', 'max:120'],
-            'slug' => ['nullable', 'string', 'min:2', 'max:160'],
-            'description' => ['nullable', 'string', 'max:2000'],
-            'is_active' => ['nullable', 'boolean'],
+            'name' => ['sometimes', 'required', 'trim', 'string', 'min:2', 'max:120'],
+            'slug' => ['sometimes', 'nullable', 'trim', 'string', 'min:2', 'max:160'],
+            'description' => ['sometimes', 'nullable', 'string', 'max:2000'],
+            'is_active' => ['sometimes', 'required', 'boolean'],
         ]);
 
-        $name = trim((string) $validated['name']);
-        $slug = trim((string) ($validated['slug'] ?? ''));
-
-        if ($slug === '') {
-            $slug = $this->slugify($name);
+        if ($validated === []) {
+            throw new ValidationException([
+                'category' => ['No category fields were provided.'],
+            ]);
         }
 
-        if ($this->categories->existsByName($name, $id)) {
-            throw new RuntimeException('Category name already exists.');
+        $updates = [];
+
+        if (array_key_exists('name', $validated)) {
+            $name = trim((string) $validated['name']);
+
+            if ($this->categories->existsByName($name, $id)) {
+                throw new ConflictException('Category name already exists.');
+            }
+
+            $updates['name'] = $name;
         }
 
-        if ($this->categories->existsBySlug($slug, $id)) {
-            throw new RuntimeException('Category slug already exists.');
+        if (array_key_exists('slug', $validated)) {
+            $providedSlug = trim((string) ($validated['slug'] ?? ''));
+            $slug = $providedSlug !== ''
+                ? $this->slugify($providedSlug)
+                : $this->slugify((string) ($updates['name'] ?? $current['name']));
+
+            if ($this->categories->existsBySlug($slug, $id)) {
+                throw new ConflictException('Category slug already exists.');
+            }
+
+            $updates['slug'] = $slug;
         }
 
-        $ok = $this->categories->updateCategory($id, [
-            'name' => $name,
-            'slug' => $slug,
-            'description' => $validated['description'] ?? null,
-            'is_active' => isset($validated['is_active']) ? (int) (bool) $validated['is_active'] : 1,
-        ]);
+        if (array_key_exists('description', $validated)) {
+            $updates['description'] = $validated['description'];
+        }
 
-        if (!$ok) {
+        if (array_key_exists('is_active', $validated)) {
+            $updates['is_active'] = (int) (bool) $validated['is_active'];
+        }
+
+        if (!$this->categories->updateCategory($id, $updates)) {
             throw new RuntimeException('Category update failed.');
         }
 
@@ -134,15 +154,11 @@ final class CategoryService
     {
         $this->requireAdmin();
 
-        $current = $this->categories->findById($id);
-
-        if (!$current) {
-            throw new RuntimeException('Category not found.');
+        if (!$this->categories->findById($id)) {
+            throw new NotFoundException('Category not found.');
         }
 
-        $ok = $this->categories->deleteCategory($id);
-
-        if (!$ok) {
+        if (!$this->categories->deleteCategory($id)) {
             throw new RuntimeException('Category deletion failed.');
         }
     }
@@ -152,7 +168,7 @@ final class CategoryService
         $user = Auth::user();
 
         if (($user['role'] ?? 'user') !== 'admin') {
-            throw new RuntimeException('Forbidden.');
+            throw new AuthorizationException();
         }
     }
 

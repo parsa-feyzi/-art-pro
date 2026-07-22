@@ -20,6 +20,28 @@ final class CategoryRepository extends Model
         return $this->firstWhere('slug', $slug);
     }
 
+    public function findActiveById(int $id): array|false
+    {
+        return $this->db->first(
+            "SELECT * FROM {$this->table}
+             WHERE id = :id
+               AND is_active = 1
+             LIMIT 1",
+            ['id' => $id]
+        );
+    }
+
+    public function findActiveBySlug(string $slug): array|false
+    {
+        return $this->db->first(
+            "SELECT * FROM {$this->table}
+             WHERE slug = :slug
+               AND is_active = 1
+             LIMIT 1",
+            ['slug' => $slug]
+        );
+    }
+
     public function findByName(string $name): array|false
     {
         return $this->firstWhere('name', $name);

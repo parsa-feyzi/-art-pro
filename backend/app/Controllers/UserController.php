@@ -6,7 +6,6 @@ namespace App\Controllers;
 
 use App\Services\UserService;
 use Core\Http\JsonResponse;
-use Throwable;
 
 final class UserController
 {
@@ -18,18 +17,10 @@ final class UserController
 
     public function show(string $username): void
     {
-        try {
-            $user = $this->users->publicProfile($username);
-
-            $this->response->success(
-                [
-                    'user' => $user,
-                ],
-                200,
-                'User profile loaded successfully.'
-            );
-        } catch (Throwable $e) {
-            $this->response->error($e->getMessage(), 404);
-        }
+        $this->response->success(
+            ['user' => $this->users->publicProfile($username)],
+            200,
+            'User profile loaded successfully.'
+        );
     }
 }

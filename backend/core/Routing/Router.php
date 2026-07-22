@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Routing;
 
-use Core\Http\JsonResponse;
-use Throwable;
+use Core\Http\Exceptions\HttpException;
+use Core\Http\Exceptions\NotFoundException;
 
 final class Router
 {
@@ -48,35 +48,40 @@ final class Router
 
     public function dispatch(string $method, string $uri): void
     {
+        $method = strtoupper($method);
+        $uri = $this->normalizeUri($uri);
+        $allowedMethods = [];
+
         foreach ($this->routes as $route) {
-            $params = $this->match($route, $method, $uri);
+            $params = $this->matchUri($route, $uri);
 
             if ($params === null) {
                 continue;
             }
 
-            try {
-                $this->runMiddleware($route->middleware);
-                $this->executeHandler($route->handler, $params);
-            } catch (Throwable $e) {
-                (new JsonResponse())->error(
-                    $e->getMessage(),
-                    500
-                );
+            if ($route->method !== $method) {
+                $allowedMethods[] = $route->method;
+                continue;
             }
+
+            $this->runMiddleware($route->middleware);
+            $this->executeHandler($route->handler, $params);
 
             return;
         }
 
-        (new JsonResponse())->error('Route not found.', 404);
-    }
+        if ($allowedMethods !== []) {
+            $allowedMethods = array_values(array_unique($allowedMethods));
+            header('Allow: ' . implode(', ', $allowedMethods));
 
-    private function match(Route $route, string $method, string $uri): ?array
-    {
-        if ($route->method !== $method) {
-            return null;
+            throw new HttpException('Method not allowed.', 405);
         }
 
+        throw new NotFoundException('Route not found.');
+    }
+
+    private function matchUri(Route $route, string $uri): ?array
+    {
         $pattern = preg_replace('/\{[a-zA-Z_][a-zA-Z0-9_]*\}/', '([^/]+)', $route->uri);
         $pattern = '#^' . $pattern . '$#';
 
@@ -86,7 +91,7 @@ final class Router
 
         array_shift($matches);
 
-        return $matches;
+        return array_map('rawurldecode', $matches);
     }
 
     private function runMiddleware(array $middleware): void
@@ -121,5 +126,12 @@ final class Router
         }
 
         $controller->{$method}(...$params);
+    }
+
+    private function normalizeUri(string $uri): string
+    {
+        $normalized = '/' . trim($uri, '/');
+
+        return $normalized === '/' ? '/' : rtrim($normalized, '/');
     }
 }

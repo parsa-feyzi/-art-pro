@@ -7,6 +7,7 @@ namespace Core\Database;
 use Core\Config;
 use PDO;
 use PDOException;
+use RuntimeException;
 
 final class Connection
 {
@@ -42,10 +43,13 @@ final class Connection
                     PDO::ATTR_EMULATE_PREPARES => false,
                 ]
             );
+
+            self::$instance->exec("SET time_zone = '+00:00'");
         } catch (PDOException $e) {
-            throw new PDOException(
-                'Database connection failed: ' . $e->getMessage(),
-                (int) $e->getCode()
+            throw new RuntimeException(
+                'Database connection failed.',
+                0,
+                $e
             );
         }
 
